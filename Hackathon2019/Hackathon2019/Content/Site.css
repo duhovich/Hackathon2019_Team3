@@ -22,3 +22,13 @@ select,
 textarea {
     max-width: 280px;
 }
+.studLabel {
+    float: left;
+    font-weight: bold;
+}
+
+.studLabelFor {
+    float: right;
+    margin-right: 400px;
+    color: dimgray;
+}

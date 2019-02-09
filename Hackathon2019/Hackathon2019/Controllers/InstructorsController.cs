@@ -41,6 +41,7 @@ namespace Hackathon2019.Controllers
             return View(nInsMod);
         }
 
+
         [Authorize(Roles = "admin")]
         public ActionResult Create()
         {

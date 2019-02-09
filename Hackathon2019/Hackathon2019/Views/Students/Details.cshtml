@@ -7,138 +7,152 @@
 <h2>Кабінет студента</h2>
 
 <div>
-    <span>
+    <span class="studLabel">
         Ім'я:
     </span>
-    <span>
+    <span class="studLabelFor">
         @Html.DisplayFor(model => model.User.LastName)
     </span>
+    <br />
 </div>
 
 <div>
-    <span>
+    <span class="studLabel">
         Прізвище:
     </span>
-    <span>
+    <span class="studLabelFor">
         @Html.DisplayFor(model => model.User.FirstMidName)
     </span>
+    <br />
 </div>
 <div>
-    <span>
+    <span class="studLabel">
         ІD Студента:
     </span>
-    <span>
+    <span class="studLabelFor">
         @Html.DisplayFor(model => model.ID)
     </span>
+    <br />
 </div>
 <div>
-    <span>
+    <span class="studLabel">
         Навчальний заклад:
     </span>
-    <span>
+    <span class="studLabelFor">
         @Html.DisplayFor(model => model.Institution)
     </span>
+    <br />
 </div>
 <div>
-    <span>
+    <span class="studLabel">
         Факультет:
     </span>
-    <span>
+    <span class="studLabelFor">
         @Html.DisplayFor(model => model.Faculty)
     </span>
+    <br />
 </div>
 <div>
-    <span>
+    <span class="studLabel">
         Поточний курс:
     </span>
-    <span class="display-field">
+    <span class="studLabelFor">
         @Html.DisplayFor(model => model.InstitutionCourse)
     </span>
+    <br />
 </div>
 <div>
-    <span>
+    <span class="studLabel">
         Інформація про студента:
     </span>
-    <span>
+    <span class="studLabelFor">
         @Html.DisplayFor(model => model.AboutMe)
     </span>
+    <br />
 </div>
 <div>
-    <span>
+    <span class="studLabel">
         Дата реєстрації:
     </span>
-    <span>
+    <span class="studLabelFor">
         @Html.DisplayFor(model => model.EnrollmentDate)
     </span>
-
-    <br /> <br />
-           <table class="table">
-
-
-               <thead>
-                   <tr>
-                       <th scope="col">Навчальний курс</th>
-                       <th scope="col">Дата початку</th>
-                       <th scope="col">Дата завершення</th>
-                       <th scope="col">Викладач</th>
-                       <th scope="col">Модулі</th>
-                   </tr>
-               </thead>
-               <br />
-               <tbody>
-                   @foreach (var item in Model.Enrollments)
-                   {
-                       try
-                       {
-                           <tr>
-                               <th scope="row">@item.Course.Title</th>
-                               <td>@item.Course.StartDate</td>
-                               <td>@item.Course.EndDate;</td>
-                               <td>@item.Course.Instructor.User.FirstMidName;</td> 
-                               <td>@Html.ActionLink("Select", "Details", new { id = Model.ID, selectedCourse = item.Course.ID })</td>
-                           </tr>
-
-
-                           if (ViewBag.Modules != null)
-                           {
-                               <table class="table">
-                                   <thead>
-                                       <tr>
-                                           <th>Назва модуля</th>
-                                           <th>Оцінка за лабораторну</th>
-                                           <th>Оцінка за тест</th>
-                                       </tr>
-                                   </thead>
-                                   <tbody>
-                                       @foreach (Hackathon2019.Models.StudentRatingVM mod in ViewBag.Modules)
-                                       {
-                                       <tr>
-                                           <td>@mod.Module.Title</td>
-                                           <td>@mod.LabRate</td>
-                                           <td>@mod.TestRate</td>
-                                       </tr>
-                                       }
-                                   <tbody>
-                               </table>
-                           }
-
-                       }
-
-                       catch (Exception e)
-                       {
-                           < p > Корустувач не зареєстрований на жодний курс </ p >;
-                       }
-                   }
-               </tbody>
-           </table>
+    <br />
+</div>
 
 
         <br />
         <br />
+        <table class="table">
 
 
+            <thead>
+                <tr>
+                    <th scope="col">Навчальний курс</th>
+                    <th scope="col">Дата початку</th>
+                    <th scope="col">Дата завершення</th>
+                    <th scope="col">Викладач</th>
+                    <th scope="col">Модулі</th>
+                </tr>
+            </thead>
+            <br />
+            <tbody>
+                @foreach (var item in Model.Enrollments)
+                {
+                    try
+                    {
+                        <tr>
+                            <th scope="row">@item.Course.Title</th>
+                            <td>@item.Course.StartDate</td>
+                            <td>@item.Course.EndDate;</td>
+                            <td>@item.Course.Instructor.User.FirstMidName;</td>
+                            <td>@Html.ActionLink("Select", "Details", new { id = Model.ID, selectedCourse = item.Course.ID })</td>
+                        </tr>
 
+
+                        if (ViewBag.Modules != null)
+                        {
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Назва модуля</th>
+                                        <th>Оцінка за лабораторну</th>
+                                        <th>Оцінка за тест</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (Hackathon2019.Models.StudentRatingVM mod in ViewBag.Modules)
+                                    {
+                                        <tr>
+                                            <td>@mod.Module.Title</td>
+                                            <td>@mod.LabRate</td>
+                                            <td>@mod.TestRate</td>
+                                        </tr>
+                                    }
+                                <tbody>
+                            </table>
+                        }
+
+                    }
+
+                    catch (Exception e)
+                    {
+                        < p > Корустувач не зареєстрований на жодний курс </ p >;
+                    }
+                }
+            </tbody>
+        </table>
+
+
+        <br />
+        <br />
 
         <p>
             @Html.ActionLink("Повернутися на головну", "Index")
         </p>
+
+        <br />
+        <br />
+
+        <div id="tlkio" data-channel="DiscussionOfRatings" style="width:100%;height:400px;"></div>
+        <script async src="http://tlk.io/embed.js" type="text/javascript"></script>
