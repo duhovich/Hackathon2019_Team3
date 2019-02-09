@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using Hackathon2019.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using  System.Data.Entity;
+using System.Data.Entity;
 
 namespace Hackathon2019.Controllers
 {
@@ -15,6 +15,7 @@ namespace Hackathon2019.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Instructors
+        //[Authorize(Roles = "instructor")]
         public ActionResult Index()
         {
             List<Instructor> nInstructors = db.Instructors.Include(c => c.User).ToList();
@@ -44,6 +45,50 @@ namespace Hackathon2019.Controllers
             };
 
             return View(nInsMod);
+        }
+
+        [Authorize(Roles = "admin")]
+        public ActionResult Create()
+        {
+            return View();
+        }
+        private ApplicationUserManager _userManager;
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "admin")]
+        public ActionResult Create(Instructor instructor, string password)
+        {
+            var user = new ApplicationUser
+            {
+                UserName = instructor.User.Email,
+                Email = instructor.User.Email,
+                LastName = instructor.User.LastName,
+                FirstMidName = instructor.User.FirstMidName
+            };
+
+            var result = UserManager.Create(user, password);
+            UserManager.AddToRoleAsync(user.Id, "instructor");
+            Instructor newInstructor = new Instructor
+            {
+                ApplicationUserID = user.Id
+            };
+
+            db.Instructors.Add(newInstructor);
+            db.SaveChanges();
+            return RedirectToAction("Index", "Home");
+
         }
 
         [HttpGet]
