@@ -20,10 +20,47 @@ namespace Hackathon2019.Controllers
         }
 
         // GET: Students/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int id, int? selectedCourse)
         {
-            return View();
+            Student student = context.Students
+                .Include(s => s.User)
+                .Include(s => s.Enrollments)
+                .Include(s => s.Enrollments.Select(e => e.Course))
+                .Include(s => s.Enrollments.Select(e => e.Course.Instructor))
+                .Include(s => s.Enrollments.Select(e => e.Course.Instructor.User))
+                .FirstOrDefault(s => s.ID == id);
+
+            if (selectedCourse.HasValue)
+            {
+                List<Module> modulesDM = context
+                    .Courses
+                    .Include(c => c.Modules)
+                    .FirstOrDefault(c => c.ID == selectedCourse)
+                    .Modules.ToList();
+
+                List<StudentRatingVM> modules = new List<StudentRatingVM>();
+                Enrollment enr = context.Enrollments.FirstOrDefault(e => e.CourseID == selectedCourse && e.StudentID == id);
+
+                foreach (Module module in modulesDM)
+                {
+                    ModuleRating rating = context.ModuleRating.FirstOrDefault(mr => mr.EnrollmentID == enr.ID && mr.ModuleID == module.ID);
+                    modules.Add(new StudentRatingVM { Module = module, LabRate = rating?.LabRate, TestRate = rating?.TestRate });
+                }
+
+                ViewBag.Modules = modules;
+
+            }
+
+            //List<Course>
+            if (student == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View("Details", student);
+
         }
+
 
         // GET: Students/Create
         public ActionResult Create()
@@ -85,7 +122,8 @@ namespace Hackathon2019.Controllers
         public ActionResult DeleteStudent(int ID)
         {
             var existStudent = context.Students.Include(s => s.User).Where(s => s.ID == ID).FirstOrDefault();
-            if (existStudent != null) {
+            if (existStudent != null)
+            {
                 context.Students.Remove(existStudent);
                 context.SaveChanges();
             }
