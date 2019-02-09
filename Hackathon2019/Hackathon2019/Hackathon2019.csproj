@@ -185,6 +185,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InstructorsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -200,6 +201,7 @@
     <Compile Include="Models\Enrollment.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Instructor.cs" />
+    <Compile Include="Models\InstructorsViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Module.cs" />
     <Compile Include="Models\ModuleRating.cs" />
@@ -263,6 +265,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Students\StudentsList.cshtml" />
     <Content Include="Views\Students\Index.cshtml" />
+    <Content Include="Views\Instructors\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "Instructors";
+}
+
+@model Hackathon2019.Models.InstructorsViewModel
+
+<h4>Вітаємо!</h4>
+
+<div class="form-group">
+    <div class="col-md-10">
+        
+            <p>@Model.FirstName</p>
+        
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-md-10">
+        
+            <p>@Model.LastName</p>
+       
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-md-10">
+        
+            <p>@Model.LastName</p>
+        
+    </div>
+</div>
+
+
+<div class="form-group">
+    @foreach (var b in Model.FixedСourses)
+    {
+        <div class="col-md-10">
+            <p>@b</p>
+        </div>
+    }
+</div>
+
+<div class="form-group">
+    @Html.ActionLink("Підтвердження оцінок", "Index", "Home")
+</div>
+
