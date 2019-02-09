@@ -390,13 +390,28 @@ namespace Hackathon2019.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, LastName = model.LastName, FirstMidName = model.FirstName };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
                     result = await UserManager.AddLoginAsync(user.Id, info.Login);
                     if (result.Succeeded)
                     {
+                        await UserManager.AddToRoleAsync(user.Id, "unconfirmed");
+                        Student nSt = new Student
+                        {
+                            Institution = model.Institution,
+                            Faculty = model.Faculty,
+                            InstitutionCourse = model.InstitutionCourse,
+                            AboutMe = model.AboutMe,
+                            EnrollmentDate = DateTime.Now,
+                            ApplicationUserID = user.Id
+                        };
+
+                        db.Students.Add(nSt);
+                        db.SaveChanges();
+
+
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                         return RedirectToLocal(returnUrl);
                     }
