@@ -210,6 +210,7 @@
     <Compile Include="Models\ModuleRating.cs" />
     <Compile Include="Models\ModuleVM.cs" />
     <Compile Include="Models\RatingsViewModel.cs" />
+    <Compile Include="Models\RatingViewModel.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\StudentRatingVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -225,6 +226,7 @@
     <Content Include="Scripts\addModuleToCourse.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
