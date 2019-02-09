@@ -8,6 +8,7 @@ using Hackathon2019.Models;
 
 namespace Hackathon2019.Controllers
 {
+    [Authorize]
     public class StudentsController : Controller
     {
         private ApplicationDbContext context = new ApplicationDbContext();
@@ -134,12 +135,39 @@ namespace Hackathon2019.Controllers
             return RedirectToAction("Index", "Students");
         }
 
-        //public ActionResult ValidateStudents()
-        //{
-        //    var roleId = "2d2a6d75-41ca-49ec-9a06-6bfd5c5c7bb1";
-        //    var unconfirmedStudents = context.Roles.Include(r => r.Users).First().
+        public ActionResult ValidateStudents()
+        {
+            var unconfirmedStudents = context.Roles
+                .Include(r => r.Users)
+                .FirstOrDefault(r => r.Name == "unconfirmed")
+                .Users
+                .Select(u => u.UserId);
 
-        //    return View(unconfirmedStudents);
-        //}
+            List<ApplicationUser> users = context.Users.Join(unconfirmedStudents,
+                u => u.Id,
+                un => un,
+                (u, un) => u).ToList();
+
+
+            return View(users);
+        }
+
+        public ActionResult ConfirmValidation(string id)
+        {
+            var user = context.Students.Where(s => s.User.Id == id).FirstOrDefault();
+            return View(user);
+        }
+
+        public ActionResult ConfirmValidationStudent(Student student)
+        {
+            //var unconfirmedStudents = context.Users
+            //    .Include(r => r.Roles)
+            //    .FirstOrDefault(r => r.Id == student.User.Id).Roles;
+            //context.SaveChanges();
+            //var role = context.Roles.Where(r => r.Name == "unconfirmed");
+            //student.User.Roles.Remove(role);
+
+            return RedirectToAction("ValidateStudents", "Students");
+        }
     }
 }

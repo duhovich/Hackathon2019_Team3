@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Hackathon2019.Models.ModuleRating>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Студент
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Module.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LabRate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TestRate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Enrollment.Student.User.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Module.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LabRate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TestRate)
+        </td>
+        <td>
+            @Html.ActionLink("Редагувати", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Відобразити", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Редагувати", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

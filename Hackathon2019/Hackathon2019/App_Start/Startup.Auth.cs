@@ -54,9 +54,9 @@ namespace Hackathon2019
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "368317754004814",
+               appSecret: "1d64a7f7ad714eaca84c2d15bfb54e8b");
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{

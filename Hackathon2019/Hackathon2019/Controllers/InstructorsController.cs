@@ -10,6 +10,7 @@ using System.Data.Entity;
 
 namespace Hackathon2019.Controllers
 {
+    [Authorize]
     public class InstructorsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -93,43 +94,27 @@ namespace Hackathon2019.Controllers
 
         [HttpGet]
         public ActionResult SupportingRatings()
-        { 
-            List<Enrollment> nEnrollment = db.Enrollments.ToList();
-            List<RatingsViewModel> ratings = new List<RatingsViewModel>();
-            RatingsViewModel newStudent = new RatingsViewModel();
+        {
+            string currentUserId = User.Identity.GetUserId();
+            int idInCourse = db.Instructors.Where(c => c.ApplicationUserID == currentUserId).Select(c => c.ID)
+                .FirstOrDefault();
 
-        var student = db.Students.Select(c => c.ID).ToList();
-            List<string> temp = new List<string>();
-            int idTemp;
-            for (int j = 0; j < student.Count; j++)
-            {
-                for (int i = 0; i < nEnrollment.Count; i++)
-                {
-                    newStudent.IdStudent = nEnrollment[i].StudentID;
-                    idTemp = student[j];
-                    var user = db.Students.Include(c => c.User).Where(c => c.ID == idTemp)
-                        .FirstOrDefault();
-                    newStudent.FullName = user.User.LastName + " " + user.User.LastName;
-                    idTemp = nEnrollment[i].CourseID;
-                    newStudent.NameCourse = db.Courses.Where(c => c.ID == idTemp).Select(c => c.Title)
-                        .FirstOrDefault();
-                    var nameModule = db.Modules.Where(c => c.CourseID == idTemp).Select(c => c.Title)
-                        .ToList();                
-                    foreach (var box in nameModule)
-                    {
-                        temp.Add(box);
-                    }
+            List<Course> courses = db.Courses.Where(c => c.InstructorID == idInCourse).ToList();
+            //ViewBag.Courses = courses;
 
-                    newStudent.NameModule = temp;
-                    
-                    ratings.Add(newStudent);
-                }
-
-                //newStudent = null;
-            }
+            List<RatingViewModel> nRatingsViewModels = new List<RatingViewModel>();
+            RatingViewModel temp = new RatingViewModel();
             
+            foreach (var boxCourse in courses)
+            {
+                temp.NameCourse = boxCourse.Title;
+                List<Module> mod = db.Modules.Where(c => c.CourseID == boxCourse.ID).ToList();
+                temp.Modules = mod;
+                nRatingsViewModels.Add(temp);
+                temp = new RatingViewModel();
+            }
 
-            ViewBag.Rezult = ratings;
+            ViewBag.Courses = nRatingsViewModels;
 
             return View();
         }

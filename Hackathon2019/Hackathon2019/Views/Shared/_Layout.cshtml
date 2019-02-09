@@ -21,12 +21,16 @@
                 @Html.ActionLink("CAMPUS IT", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Кабінет студента", "Details", "Students")</li>
-                    <li>@Html.ActionLink("Усі студенти", "Index", "Students")</li>
-                    @*<li>@Html.ActionLink("Кабінет викладача", "Details", "Instructors")</li>*@
-                    <li>@Html.ActionLink("Кабінет викладача", "Index", "Instructors")</li>
-                </ul>
+                @if (!User.IsInRole("unconfirmed"))
+                {
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Усі студенти", "Index", "Students")</li>
+                        @*<li>@Html.ActionLink("Кабінет студента", "Details", "Students")</li>
+
+                            <li>@Html.ActionLink("Кабінет викладача", "Details", "Instructors")</li>
+                            <li>@Html.ActionLink("Кабінет викладача", "Index", "Instructors")</li>*@
+                    </ul>
+                }
                 @Html.Partial("_LoginPartial")
             </div>
         </div>

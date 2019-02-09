@@ -48,6 +48,11 @@ namespace Hackathon2019.Controllers
             return View(module);
         }
 
+        //public ActionResult EditModuleRating(int? id)
+        //{
+
+        //}
+
         // GET: Modules/Create
         public ActionResult Create()
         {

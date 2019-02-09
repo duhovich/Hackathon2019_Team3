@@ -1,27 +1,24 @@
-﻿@model IEnumerable<Hackathon2019.Models.Student>
+﻿@model List<Hackathon2019.Models.ApplicationUser>
 
 @{
-    ViewBag.Title = "ValidateStudents";
+    ViewBag.Title = "Заявки";
 }
 
-<h2>ValidateStudents</h2>
+<h2>Непідтверджені заявки</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.User.FirstMidName)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().FirstMidName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.User.LastName)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().LastName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.InstitutionCourse)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Email)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EnrollmentDate)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().UserName)
         </th>
         <th></th>
     </tr>
@@ -29,21 +26,19 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.User.LastName)
+            @Html.DisplayFor(modelItem => item.LastName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.User.FirstMidName)
+            @Html.DisplayFor(modelItem => item.FirstMidName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.InstitutionCourse)
+            @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.EnrollmentDate)
+            @Html.DisplayFor(modelItem => item.UserName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Детальніше", "ConfirmValidation", new { item.Id }, null)
         </td>
     </tr>
 }

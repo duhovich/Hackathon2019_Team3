@@ -9,7 +9,7 @@ using Microsoft.Owin.Security;
 using Hackathon2019.Models;
 
 namespace Hackathon2019.Controllers
-{
+{ 
     [Authorize]
     public class ManageController : Controller
     {
