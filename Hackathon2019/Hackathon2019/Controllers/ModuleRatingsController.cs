@@ -10,123 +10,122 @@ using Hackathon2019.Models;
 
 namespace Hackathon2019.Controllers
 {
-    public class CoursesController : Controller
+    public class ModuleRatingsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Courses
+        // GET: ModuleRatings
         public ActionResult Index()
         {
-            var courses = db.Courses.Include(c => c.Instructor).Include(c => c.Instructor.User);
-            return View(courses.ToList());
+            var moduleRating = db.ModuleRating
+                .Include(m => m.Enrollment)
+                .Include(m => m.Enrollment.Student)
+                .Include(m => m.Enrollment.Student.User)
+                .Include(m => m.Module);
+            return View(moduleRating.ToList());
         }
 
-        // GET: Courses/Details/5
+        // GET: ModuleRatings/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.Courses
-                .Include(c => c.Modules)
-                .Include(c => c.Enrollments)
-                .Include(c => c.Enrollments.Select(e => e.Student))
-                .Include(c => c.Enrollments.Select(e => e.Student.User))
-                .FirstOrDefault(c => c.ID == id);
-            if (course == null)
+            ModuleRating moduleRating = db.ModuleRating.Find(id);
+            if (moduleRating == null)
             {
                 return HttpNotFound();
             }
-            return View(course);
+            return View(moduleRating);
         }
 
-        // GET: Courses/Create
+        // GET: ModuleRatings/Create
         public ActionResult Create()
         {
-            List<Instructor> instructors = db.Instructors.Include(i => i.User).ToList();
-            ViewBag.InstructorID = new SelectList(instructors, "ID", "User.LastName");
+            List<Enrollment> enrollments = db.Enrollments.Include(e => e.Student).Include(e => e.Student.User).ToList();
+
+            ViewBag.EnrollmentID = new SelectList(enrollments, "ID", "Student.User.LastName");
+            ViewBag.ModuleID = new SelectList(db.Modules, "ID", "Title");
             return View();
         }
 
-        // POST: Courses/Create
+        // POST: ModuleRatings/Create
         // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
         // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Title,StartDate,EndDate,InstructorID")] Course course)
+        public ActionResult Create([Bind(Include = "ID,ModuleID,EnrollmentID,LabRate,TestRate")] ModuleRating moduleRating)
         {
             if (ModelState.IsValid)
             {
-                db.Courses.Add(course);
+                db.ModuleRating.Add(moduleRating);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.InstructorID = new SelectList(db.Instructors, "ID", "ApplicationUserID", course.InstructorID);
-            return View(course);
+            ViewBag.EnrollmentID = new SelectList(db.Enrollments, "ID", "ID", moduleRating.EnrollmentID);
+            ViewBag.ModuleID = new SelectList(db.Modules, "ID", "Title", moduleRating.ModuleID);
+            return View(moduleRating);
         }
 
-        // GET: Courses/Edit/5
+        // GET: ModuleRatings/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            Course course = db.Courses.Include(c => c.Modules).FirstOrDefault(c => c.ID == id);
-            if (course == null)
+            ModuleRating moduleRating = db.ModuleRating.Find(id);
+            if (moduleRating == null)
             {
                 return HttpNotFound();
             }
-
-            List<Instructor> instructors = db.Instructors.Include(i => i.User).ToList();
-            ViewBag.InstructorID = new SelectList(instructors, "ID", "User.LastName", course.InstructorID);
-
-            return View(course);
+            ViewBag.EnrollmentID = new SelectList(db.Enrollments, "ID", "ID", moduleRating.EnrollmentID);
+            ViewBag.ModuleID = new SelectList(db.Modules, "ID", "Title", moduleRating.ModuleID);
+            return View(moduleRating);
         }
 
-        // POST: Courses/Edit/5
+        // POST: ModuleRatings/Edit/5
         // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
         // сведения см. в статье http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Title,StartDate,EndDate,InstructorID")] Course course)
+        public ActionResult Edit([Bind(Include = "ID,ModuleID,EnrollmentID,LabRate,TestRate")] ModuleRating moduleRating)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(course).State = EntityState.Modified;
+                db.Entry(moduleRating).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.InstructorID = new SelectList(db.Instructors, "ID", "ApplicationUserID", course.InstructorID);
-
-            return View(course);
+            ViewBag.EnrollmentID = new SelectList(db.Enrollments, "ID", "ID", moduleRating.EnrollmentID);
+            ViewBag.ModuleID = new SelectList(db.Modules, "ID", "Title", moduleRating.ModuleID);
+            return View(moduleRating);
         }
 
-        // GET: Courses/Delete/5
+        // GET: ModuleRatings/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.Courses.Find(id);
-            if (course == null)
+            ModuleRating moduleRating = db.ModuleRating.Find(id);
+            if (moduleRating == null)
             {
                 return HttpNotFound();
             }
-            return View(course);
+            return View(moduleRating);
         }
 
-        // POST: Courses/Delete/5
+        // POST: ModuleRatings/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Course course = db.Courses.Find(id);
-            db.Courses.Remove(course);
+            ModuleRating moduleRating = db.ModuleRating.Find(id);
+            db.ModuleRating.Remove(moduleRating);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

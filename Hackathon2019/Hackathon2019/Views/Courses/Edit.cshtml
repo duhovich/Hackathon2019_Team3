@@ -53,25 +53,6 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <button class="btn btn-default" type="button" id="addNewModule">Додати новий модуль</button>
-                @{
-                    var modules = Model.Modules.ToList();
-                }
-                <div id="modules">
-                    @for (int i = 0; i < Model.Modules.Count; i++)
-                    {
-                        <div>
-                            Назва: <input type='text' name='modules[@i].Title' value="@modules[i].Title" />
-                            Є лабораторна: @Html.CheckBox($"modules[{i}].IsLabExists", modules[i].IsLabExists)
-                            Є тест: @Html.CheckBox($"modules[{i}].IsTextExists", modules[i].IsTestExists)
-                        </div>
-                    }
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
