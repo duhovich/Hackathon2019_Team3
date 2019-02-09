@@ -3,44 +3,34 @@
     ViewBag.Title = "Instructors";
 }
 
-@model Hackathon2019.Models.InstructorsViewModel
+@model List<Hackathon2019.Models.Instructor>
 
-<h4>Вітаємо!</h4>
+<h3 align="center">Вітаємо викладача!</h3>
 
-<div class="form-group">
-    <div class="col-md-10">
-        
-            <p>@Model.FirstName</p>
-        
-    </div>
-</div>
-<div class="form-group">
-    <div class="col-md-10">
-        
-            <p>@Model.LastName</p>
-       
+<div class="col-md-12">
+    <div class="form-group">
+        @Html.ActionLink("Підтвердження оцінок", "SupportingRatings", "Instructors")
     </div>
 </div>
 
-<div class="form-group">
-    <div class="col-md-10">
-        
-            <p>@Model.LastName</p>
-        
-    </div>
-</div>
-
-
-<div class="form-group">
-    @foreach (var b in Model.FixedСourses)
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Ім*я</th>
+        <th scope="col">Прізвище</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var S in Model)
     {
-        <div class="col-md-10">
-            <p>@b</p>
-        </div>
+        <tr>
+            <td>@S.User.FirstMidName</td>
+            <td>@S.User.LastName</td>
+            <td>@Html.ActionLink("Детально", "Detail", "Instructors", new { S.User.Id }, null)</td>
+        </tr>
     }
-</div>
+    </tbody>
+</table>
 
-<div class="form-group">
-    @Html.ActionLink("Підтвердження оцінок", "Index", "Home")
-</div>
+
 
