@@ -129,6 +129,7 @@ namespace Hackathon2019.Controllers
                 context.Students.Remove(existStudent);
                 context.Users.Remove(existUser);
                 context.SaveChanges();
+
             }
             return RedirectToAction("Index", "Students");
         }
