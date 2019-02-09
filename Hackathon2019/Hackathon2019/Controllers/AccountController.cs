@@ -152,8 +152,7 @@ namespace Hackathon2019.Controllers
         {
             if (ModelState.IsValid)
             {
-                string fullName = model.FirstName + " " + model.MidleName;
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, LastName = model.LastName, FirstMidName = fullName};
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, LastName = model.LastName, FirstMidName = model.FirstName};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
