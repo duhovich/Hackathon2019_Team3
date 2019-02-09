@@ -9,27 +9,30 @@
 <table class="table">
     <thead>
         <tr>
-            @*/<th scope="col">#</th>*@
+            <th scope="col">ID</th>
             <th scope="col">Ім*я</th>
             <th scope="col">Прізвище</th>
             <th scope="col">Інститут</th>
             <th scope="col">Факультет</th>
             <th scope="col">Курс</th>
             <th scope="col">Дата приєднання</th>
+            <th scope="col">Редагування</th>
+            <th scope="col">Видалити</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var S in Model)
         {
         <tr>
-            @*<th scope="row">@</th>*@
+            <th scope="row">@S.ID</th>
             <td>@S.User.FirstMidName</td>
             <td>@S.User.LastName</td>
             <td>@S.Institution</td>
             <td>@S.Faculty</td>
             <td>@S.InstitutionCourse</td>
             <td>@S.EnrollmentDate</td>
-
+            <th>@Html.ActionLink("Редагування","Edit","Students", new { S.ID }, null )</th>
+            <th>@Html.ActionLink("Видалення","Delete","Students", new { S.ID }, null) </th>
         </tr>
         }
     </tbody>
