@@ -16,6 +16,9 @@ namespace Hackathon2019.Models
             // Здесь добавьте утверждения пользователя
             return userIdentity;
         }
+
+        public string LastName { get; set; }
+        public string FirstMidName { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -29,5 +32,12 @@ namespace Hackathon2019.Models
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<Student> Students { get; set; }
+        public DbSet<Instructor> Instructors { get; set; }
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<Module> Modules { get; set; }
+        public DbSet<Enrollment> Enrollments { get; set; }
+        public DbSet<ModuleRating> ModuleRating { get; set; }
     }
 }
