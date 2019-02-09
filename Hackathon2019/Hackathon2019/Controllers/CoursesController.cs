@@ -28,7 +28,12 @@ namespace Hackathon2019.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.Courses.Include(c => c.Modules).FirstOrDefault(c => c.ID == id);
+            Course course = db.Courses
+                .Include(c => c.Modules)
+                .Include(c => c.Enrollments)
+                .Include(c => c.Enrollments.Select(e => e.Student))
+                .Include(c => c.Enrollments.Select(e => e.Student.User))
+                .FirstOrDefault(c => c.ID == id);
             if (course == null)
             {
                 return HttpNotFound();

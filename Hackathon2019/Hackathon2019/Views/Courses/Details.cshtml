@@ -1,4 +1,4 @@
-﻿@using System.Reflection
+﻿
 @model Hackathon2019.Models.Course
 
 @{
@@ -42,7 +42,7 @@
         <dd>
             @Html.DisplayFor(model => model.EndDate)
         </dd>
-        
+
         <dt>
             @Html.DisplayNameFor(model => model.Modules)
         </dt>
@@ -53,6 +53,21 @@
                 {
                     <li>
                         @module.Title
+                    </li>
+                }
+            </ul>
+        </dd>
+        
+        <dt>
+            Студенти
+        </dt>
+
+        <dd>
+            <ul>
+                @foreach (Hackathon2019.Models.Student student in Model.Enrollments.Select(e => e.Student))
+                {
+                    <li>
+                        <a href="@Url.Action("Details","Students",new {id = student.ID})">@student.User.LastName @student.User.FirstMidName</a>
                     </li>
                 }
             </ul>
