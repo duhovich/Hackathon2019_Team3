@@ -5,11 +5,15 @@ using System.Web;
 
 namespace Hackathon2019.Models
 {
-    public class InstructorsViewModel
+    public class InstructorsDateilViewModel
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+    }
 
-        public List<string> FixedСourses { get; set; }
+    public class CoursesViewModel
+    {
+        public int id { get; set; }
+        public string Courses { get; set; }
     }
 }

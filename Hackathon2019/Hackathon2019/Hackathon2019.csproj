@@ -188,6 +188,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InstructorsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ModulesController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -202,11 +203,12 @@
     <Compile Include="Models\Enrollment.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Instructor.cs" />
-    <Compile Include="Models\InstructorsViewModel.cs" />
+    <Compile Include="Models\InstructorsDateilViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Module.cs" />
     <Compile Include="Models\ModuleRating.cs" />
     <Compile Include="Models\ModuleVM.cs" />
+    <Compile Include="Models\RatingsViewModel.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\StudentRatingVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -279,6 +281,16 @@
     <Content Include="Views\Courses\Index.cshtml" />
     <Content Include="Views\Instructors\Create.cshtml" />
     <Content Include="Views\Students\Details.cshtml" />
+    <Content Include="Views\Instructors\SupportingRatings.cshtml" />
+    <Content Include="Views\Instructors\Detail.cshtml" />
+    <Content Include="Views\Account\UnconfirmedUserIndex.cshtml" />
+    <Content Include="Views\Students\ValidateStudents.cshtml" />
+    <Content Include="Views\Modules\Create.cshtml" />
+    <Content Include="Views\Modules\Delete.cshtml" />
+    <Content Include="Views\Modules\Details.cshtml" />
+    <Content Include="Views\Modules\Edit.cshtml" />
+    <Content Include="Views\Modules\Index.cshtml" />
+    <Content Include="Views\Shared\_MenuPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

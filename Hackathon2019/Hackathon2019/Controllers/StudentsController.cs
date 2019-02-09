@@ -133,5 +133,13 @@ namespace Hackathon2019.Controllers
             }
             return RedirectToAction("Index", "Students");
         }
+
+        //public ActionResult ValidateStudents()
+        //{
+        //    var roleId = "2d2a6d75-41ca-49ec-9a06-6bfd5c5c7bb1";
+        //    var unconfirmedStudents = context.Roles.Include(r => r.Users).First().
+
+        //    return View(unconfirmedStudents);
+        //}
     }
 }
