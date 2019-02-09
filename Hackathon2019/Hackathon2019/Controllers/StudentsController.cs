@@ -50,45 +50,46 @@ namespace Hackathon2019.Controllers
         // GET: Students/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Student student = context.Students.Include(s => s.User).Where(s => s.ID == id).FirstOrDefault();
+            return View(student);
         }
 
         // POST: Students/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Student student)
         {
-            try
+            var existStudent = context.Students.Include(s => s.User).Where(s => s.ID == student.ID).FirstOrDefault();
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                existStudent.User.FirstMidName = student.User.FirstMidName;
+                existStudent.User.LastName = student.User.FirstMidName;
+                existStudent.Faculty = student.Faculty;
+                existStudent.Institution = student.Institution;
+                existStudent.InstitutionCourse = student.InstitutionCourse;
+                existStudent.AboutMe = student.AboutMe;
             }
-            catch
-            {
-                return View();
-            }
+            context.SaveChanges();
+            return RedirectToAction("Index", "Students");
         }
 
         // GET: Students/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var student = context.Students.Include(s => s.User).FirstOrDefault();
+            return View(student);
         }
 
         // POST: Students/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [ActionName("Delete")]
+        public ActionResult DeleteStudent(int ID)
         {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+            var existStudent = context.Students.Include(s => s.User).Where(s => s.ID == ID).FirstOrDefault();
+            if (existStudent != null) {
+                context.Students.Remove(existStudent);
+                context.SaveChanges();
             }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("Index", "Students");
         }
     }
 }
