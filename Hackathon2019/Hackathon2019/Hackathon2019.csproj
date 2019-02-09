@@ -284,6 +284,7 @@
     <Content Include="Views\Instructors\Detail.cshtml" />
     <Content Include="Views\Account\UnconfirmedUserIndex.cshtml" />
     <Content Include="Views\Students\ValidateStudents.cshtml" />
+    <Content Include="Views\Shared\_MenuPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

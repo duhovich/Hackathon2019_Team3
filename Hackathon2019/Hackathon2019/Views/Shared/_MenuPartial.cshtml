@@ -1,0 +1,19 @@
+﻿<ul class="nav navbar-nav">
+    @if (User.IsInRole("admin"))
+    {
+        <li>@Html.ActionLink("Мій кабінет a", "Index", "Students")</li>
+    }
+    else
+    {
+        if (User.IsInRole("instructor"))
+        {
+            <li>@Html.ActionLink("Мій кабінет i", "Index", "Students")</li>
+        }
+        else
+        {
+            <li>@Html.ActionLink("Мій кабінет s", "Details", "Students", new { User.Identity.GetUserId() }, null)</li>
+        }
+    }
+
+    <li>@Html.ActionLink("Усі студенти", "Index", "Students")</li>
+</ul>
