@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewBag.Title = "Detail";
+}
+
+<h2>Detail</h2>
+
+<div class="form-group">
+    <div class="col-md-12">
+        <label>Ім*я:</label>
+        <p>@Model.FirstName</p>
+
+    </div>
+</div>
+<br />
+
+<div class="form-group">
+    <div class="col-md-12">
+        <label>Прізвище:</label>
+        <p>@Model.LastName</p>
+    </div>
+</div>
+<br />
+
+<div class="form-group">
+    <label>Закріплені курси:</label>
+    @foreach (var b in Model.FixedСourses)
+    {
+        <div class="col-md-12">
+            <p>@b</p>
+        </div>
+    }
+</div>
+

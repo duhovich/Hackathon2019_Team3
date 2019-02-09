@@ -18,10 +18,16 @@ namespace Hackathon2019.Controllers
         //[Authorize(Roles = "instructor")]
         public ActionResult Index()
         {
-            string currentUserId = User.Identity.GetUserId();
-            var instructor = db.Instructors.Include(c => c.User).Where(c => c.ApplicationUserID == currentUserId)
+            List<Instructor> nInstructors = db.Instructors.Include(c => c.User).ToList();
+
+            return View(nInstructors);
+        }
+
+        public ActionResult Detail(string id)
+        {
+            var instructor = db.Instructors.Include(c => c.User).Where(c => c.ApplicationUserID == id)
                 .FirstOrDefault();
-            int idInCourse = db.Instructors.Where(c => c.ApplicationUserID == currentUserId).Select(c => c.ID)
+            int idInCourse = db.Instructors.Where(c => c.ApplicationUserID == id).Select(c => c.ID)
                 .FirstOrDefault();
 
             var course = db.Courses.Where(c => c.InstructorID == idInCourse);
@@ -31,7 +37,7 @@ namespace Hackathon2019.Controllers
                 listCourses.Add(b.Title);
             }
 
-            InstructorsViewModel nInsMod = new InstructorsViewModel
+            InstructorsDateilViewModel nInsMod = new InstructorsDateilViewModel
             {
                 FirstName = instructor.User.FirstMidName,
                 LastName = instructor.User.LastName,
@@ -83,6 +89,49 @@ namespace Hackathon2019.Controllers
             db.SaveChanges();
             return RedirectToAction("Index", "Home");
 
+        }
+
+        [HttpGet]
+        public ActionResult SupportingRatings()
+        { 
+            List<Enrollment> nEnrollment = db.Enrollments.ToList();
+            List<RatingsViewModel> ratings = new List<RatingsViewModel>();
+            RatingsViewModel newStudent = new RatingsViewModel();
+
+        var student = db.Students.Select(c => c.ID).ToList();
+            List<string> temp = new List<string>();
+            int idTemp;
+            for (int j = 0; j < student.Count; j++)
+            {
+                for (int i = 0; i < nEnrollment.Count; i++)
+                {
+                    newStudent.IdStudent = nEnrollment[i].StudentID;
+                    idTemp = student[j];
+                    var user = db.Students.Include(c => c.User).Where(c => c.ID == idTemp)
+                        .FirstOrDefault();
+                    newStudent.FullName = user.User.LastName + " " + user.User.LastName;
+                    idTemp = nEnrollment[i].CourseID;
+                    newStudent.NameCourse = db.Courses.Where(c => c.ID == idTemp).Select(c => c.Title)
+                        .FirstOrDefault();
+                    var nameModule = db.Modules.Where(c => c.CourseID == idTemp).Select(c => c.Title)
+                        .ToList();                
+                    foreach (var box in nameModule)
+                    {
+                        temp.Add(box);
+                    }
+
+                    newStudent.NameModule = temp;
+                    
+                    ratings.Add(newStudent);
+                }
+
+                //newStudent = null;
+            }
+            
+
+            ViewBag.Rezult = ratings;
+
+            return View();
         }
     }
 }
