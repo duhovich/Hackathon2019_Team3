@@ -156,6 +156,7 @@ namespace Hackathon2019.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    await UserManager.AddToRoleAsync(user.Id, "student");
                     Student nSt = new Student
                     {
                         Institution = model.Institution,
