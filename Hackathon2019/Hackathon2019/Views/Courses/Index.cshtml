@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<Hackathon2019.Models.Course>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Курси";
 }
 
-<h2>Index</h2>
+<h2>Усі курси</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Створити новий", "Create")
 </p>
 <table class="table">
     <tr>
@@ -41,9 +41,9 @@
             @Html.DisplayFor(modelItem => item.EndDate)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Редагувати", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Деталі", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Видалити", "Delete", new { id=item.ID })
         </td>
     </tr>
 }

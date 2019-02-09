@@ -30,22 +30,22 @@ namespace Hackathon2019.Controllers
             int idInCourse = db.Instructors.Where(c => c.ApplicationUserID == id).Select(c => c.ID)
                 .FirstOrDefault();
 
+            ViewBag.FirstName = instructor.User.FirstMidName;
+            ViewBag.LastName = instructor.User.LastName;
+
             var course = db.Courses.Where(c => c.InstructorID == idInCourse);
-            List<string> listCourses = new List<string>();
+            List<CoursesViewModel> lisrCoursesViewModels = new List<CoursesViewModel>();
+            CoursesViewModel temp = new CoursesViewModel();
             foreach (var b in course)
             {
-                listCourses.Add(b.Title);
+                temp.id = b.ID;
+                temp.Courses = b.Title;
+                lisrCoursesViewModels.Add(temp); 
             }
-
-            InstructorsDateilViewModel nInsMod = new InstructorsDateilViewModel
-            {
-                FirstName = instructor.User.FirstMidName,
-                LastName = instructor.User.LastName,
-                FixedСourses = listCourses
-            };
-
-            return View(nInsMod);
+            
+            return View(lisrCoursesViewModels);
         }
+
 
         [Authorize(Roles = "admin")]
         public ActionResult Create()
