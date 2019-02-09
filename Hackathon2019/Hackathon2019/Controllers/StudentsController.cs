@@ -123,13 +123,13 @@ namespace Hackathon2019.Controllers
         public ActionResult DeleteStudent(int ID)
         {
             var existStudent = context.Students.Include(s => s.User).Where(s => s.ID == ID).FirstOrDefault();
-            if (existStudent != null) {
-                var existUser = existStudent.User;
             if (existStudent != null)
             {
+                var existUser = existStudent.User;
                 context.Students.Remove(existStudent);
                 context.Users.Remove(existUser);
                 context.SaveChanges();
+
             }
             return RedirectToAction("Index", "Students");
         }
