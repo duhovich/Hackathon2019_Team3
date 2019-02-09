@@ -56,6 +56,7 @@ namespace Hackathon2019.Controllers
 
         // POST: Students/Edit/5
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public ActionResult Edit(Student student)
         {
             var existStudent = context.Students.Include(s => s.User).Where(s => s.ID == student.ID).FirstOrDefault();
@@ -86,7 +87,9 @@ namespace Hackathon2019.Controllers
         {
             var existStudent = context.Students.Include(s => s.User).Where(s => s.ID == ID).FirstOrDefault();
             if (existStudent != null) {
+                var existUser = existStudent.User;
                 context.Students.Remove(existStudent);
+                context.Users.Remove(existUser);
                 context.SaveChanges();
             }
             return RedirectToAction("Index", "Students");
