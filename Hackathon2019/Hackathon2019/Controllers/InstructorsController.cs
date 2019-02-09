@@ -10,6 +10,7 @@ using System.Data.Entity;
 
 namespace Hackathon2019.Controllers
 {
+    [Authorize]
     public class InstructorsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

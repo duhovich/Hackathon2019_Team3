@@ -1,0 +1,66 @@
+﻿@model Hackathon2019.Models.Student
+
+@{
+    ViewBag.Title = "ConfirmValidation";
+}
+
+<h2>ConfirmValidation</h2>
+
+<div>
+    <h4>Student</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Institution)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Institution)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Faculty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Faculty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InstitutionCourse)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InstitutionCourse)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AboutMe)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AboutMe)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EnrollmentDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EnrollmentDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplicationUserID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationUserID)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Підтвердити заявку", "ConfirmValidationStudent", new { Model }) |
+    @Html.ActionLink("Назад", "Index")
+</p>
