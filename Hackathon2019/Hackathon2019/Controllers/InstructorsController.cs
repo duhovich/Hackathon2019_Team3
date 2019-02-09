@@ -46,6 +46,7 @@ namespace Hackathon2019.Controllers
             return View(lisrCoursesViewModels);
         }
 
+
         [Authorize(Roles = "admin")]
         public ActionResult Create()
         {

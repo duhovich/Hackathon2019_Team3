@@ -30,10 +30,21 @@ namespace Hackathon2019.Controllers
             }
 
             Module module = db.Modules.Include(m => m.Course).FirstOrDefault(m => m.ID == id);
+
+
             if (module == null)
             {
                 return HttpNotFound();
             }
+
+            List<ModuleRating> rating = db.ModuleRating
+                .Include(mr => mr.Enrollment)
+                .Include(mr => mr.Enrollment.Student)
+                .Where(mr => mr.ModuleID == id)
+                .ToList();
+
+            ViewBag.Rating = rating;
+
             return View(module);
         }
 
