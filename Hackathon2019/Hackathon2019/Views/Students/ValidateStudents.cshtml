@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Hackathon2019.Models.Student>
+
+@{
+    ViewBag.Title = "ValidateStudents";
+}
+
+<h2>ValidateStudents</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.User.FirstMidName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InstitutionCourse)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EnrollmentDate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.FirstMidName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InstitutionCourse)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EnrollmentDate)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
