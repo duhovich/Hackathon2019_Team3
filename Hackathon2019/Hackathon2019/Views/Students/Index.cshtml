@@ -1,0 +1,37 @@
+﻿@model List<Hackathon2019.Models.Student>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>СПИСОК СТУДЕНТІВ</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            @*/<th scope="col">#</th>*@
+            <th scope="col">Ім*я</th>
+            <th scope="col">Прізвище</th>
+            <th scope="col">Інститут</th>
+            <th scope="col">Факультет</th>
+            <th scope="col">Курс</th>
+            <th scope="col">Дата приєднання</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var S in Model)
+        {
+        <tr>
+            @*<th scope="row">@</th>*@
+            <td>@S.User.FirstMidName</td>
+            <td>@S.User.LastName</td>
+            <td>@S.Institution</td>
+            <td>@S.Faculty</td>
+            <td>@S.InstitutionCourse</td>
+            <td>@S.EnrollmentDate</td>
+
+        </tr>
+        }
+    </tbody>
+</table>
+

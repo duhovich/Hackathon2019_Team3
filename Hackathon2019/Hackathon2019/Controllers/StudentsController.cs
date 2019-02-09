@@ -1,17 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Hackathon2019.Models;
 
 namespace Hackathon2019.Controllers
 {
     public class StudentsController : Controller
     {
+        private ApplicationDbContext context = new ApplicationDbContext();
+
         // GET: Students
         public ActionResult Index()
         {
-            return View();
+            List<Student> students = context.Students.Include(s => s.User).ToList();
+            return View(students);
         }
 
         // GET: Students/Details/5
