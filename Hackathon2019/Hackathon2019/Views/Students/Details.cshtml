@@ -6,79 +6,43 @@
 
 <h2>Кабінет студента</h2>
 
-<div>
-    <span class="studLabel">
-        Ім'я:
-    </span>
-    <span class="studLabelFor">
-        @Html.DisplayFor(model => model.User.LastName)
-    </span>
-    <br />
-</div>
 
-<div>
-    <span class="studLabel">
-        Прізвище:
-    </span>
-    <span class="studLabelFor">
-        @Html.DisplayFor(model => model.User.FirstMidName)
-    </span>
-    <br />
-</div>
-<div>
-    <span class="studLabel">
-        ІD Студента:
-    </span>
-    <span class="studLabelFor">
-        @Html.DisplayFor(model => model.ID)
-    </span>
-    <br />
-</div>
-<div>
-    <span class="studLabel">
-        Навчальний заклад:
-    </span>
-    <span class="studLabelFor">
-        @Html.DisplayFor(model => model.Institution)
-    </span>
-    <br />
-</div>
-<div>
-    <span class="studLabel">
-        Факультет:
-    </span>
-    <span class="studLabelFor">
-        @Html.DisplayFor(model => model.Faculty)
-    </span>
-    <br />
-</div>
-<div>
-    <span class="studLabel">
-        Поточний курс:
-    </span>
-    <span class="studLabelFor">
-        @Html.DisplayFor(model => model.InstitutionCourse)
-    </span>
-    <br />
-</div>
-<div>
-    <span class="studLabel">
-        Інформація про студента:
-    </span>
-    <span class="studLabelFor">
-        @Html.DisplayFor(model => model.AboutMe)
-    </span>
-    <br />
-</div>
-<div>
-    <span class="studLabel">
-        Дата реєстрації:
-    </span>
-    <span class="studLabelFor">
-        @Html.DisplayFor(model => model.EnrollmentDate)
-    </span>
-    <br />
-</div>
+
+<table>
+    <tr>
+        <td class="studLabel">Прізвище:</td>
+        <td class="studLabelFor">  @Html.DisplayFor(model => model.User.LastName)</td>
+    </tr>
+    <tr>
+        <td class="studLabel">Ім'я:</td>
+        <td class="studLabelFor">  @Html.DisplayFor(model => model.User.FirstMidName)</td>
+    </tr>
+    <tr>
+        <td class="studLabel">ІD Студента:</td>
+        <td class="studLabelFor">  @Html.DisplayFor(model => model.ID)</td>
+    </tr>
+    <tr>
+        <td class="studLabel"> Навчальний заклад:</td>
+        <td class="studLabelFor">  @Html.DisplayFor(model => model.Institution)</td>
+    </tr>
+    <tr>
+        <td class="studLabel"> Факультет:</td>
+        <td class="studLabelFor">  @Html.DisplayFor(model => model.Faculty)</td>
+    </tr>
+    <tr>
+        <td class="studLabel"> Поточний курс:</td>
+        <td class="studLabelFor">  @Html.DisplayFor(model => model.InstitutionCourse)</td>
+    </tr>
+    <tr>
+        <td class="studLabel"> Інформація про студента:</td>
+        <td class="studLabelFor">  @Html.DisplayFor(model => model.AboutMe)</td>
+    </tr>
+    <tr>
+        <td class="studLabel"> Дата реєстрації::</td>
+        <td class="studLabelFor">  @Html.DisplayFor(model => model.EnrollmentDate)</td>
+    </tr>
+
+</table>
 
 
         <br />
