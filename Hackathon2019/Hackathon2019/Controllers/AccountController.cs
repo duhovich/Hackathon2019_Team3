@@ -17,6 +17,7 @@ namespace Hackathon2019.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         public AccountController()
         {
@@ -151,10 +152,23 @@ namespace Hackathon2019.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, LastName = model.LastName, FirstMidName = model.FirstName};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    Student nSt = new Student
+                    {
+                        Institution = model.Institution,
+                        Faculty = model.Faculty,
+                        InstitutionCourse = model.InstitutionCourse,
+                        AboutMe = model.AboutMe,
+                        EnrollmentDate = DateTime.Now,
+                        ApplicationUserID = user.Id
+                    };
+
+                    db.Students.Add(nSt);
+                    db.SaveChanges();
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // Дополнительные сведения о том, как включить подтверждение учетной записи и сброс пароля, см. по адресу: http://go.microsoft.com/fwlink/?LinkID=320771

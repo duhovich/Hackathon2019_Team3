@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.ComponentModel;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -17,7 +18,9 @@ namespace Hackathon2019.Models
             return userIdentity;
         }
 
+        [DisplayName("Прізвище")]
         public string LastName { get; set; }
+        [DisplayName("Ім*я По-батькові")]
         public string FirstMidName { get; set; }
     }
 

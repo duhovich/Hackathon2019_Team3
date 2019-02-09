@@ -64,21 +64,45 @@ namespace Hackathon2019.Models
 
     public class RegisterViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Введіть Email!")]
         [EmailAddress]
-        [Display(Name = "Адрес электронной почты")]
+        [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Введіть Ваше Прізвище!")]
+        [Display(Name = "Введіть Ваше Прізвище")]
+        public string LastName { get; set; }
+
+        [Required(ErrorMessage = "Введіть Ім*я!")]
+        [Display(Name = "Введіть Ваше Ім*я")]
+        public string FirstName { get; set; }
+
+        [Required(ErrorMessage = "Введіть пароль!")]
         [StringLength(100, ErrorMessage = "Значение {0} должно содержать не менее {2} символов.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Пароль")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Подтверждение пароля")]
-        [Compare("Password", ErrorMessage = "Пароль и его подтверждение не совпадают.")]
+        [Display(Name = "Підтвердження пароля")]
+        [Compare("Password", ErrorMessage = "Паролі не співпадають")]
         public string ConfirmPassword { get; set; }
+
+        [Required(ErrorMessage = "Введіть Ваш університет!")]
+        [Display(Name = "Введіт Ваш університет")]
+        public string Institution { get; set; }
+
+        [Required(ErrorMessage = "Введіть Ваш факультет!")]
+        [Display(Name = "Введіть Ваш факультет")]
+        public string Faculty { get; set; }
+
+        [Required(ErrorMessage = "Введіть Ваш курс(рік навчання)!")]
+        [Display(Name = "Введіть Ваш курс(рік навчання)")]
+        public int InstitutionCourse { get; set; }
+
+        [Required(ErrorMessage = "Введіть інформацію про себе!")]
+        [Display(Name = "Розкажіть про свої вміння в галузі ІТ, технології з якими працювали, мови програмування, якими володієте, навичками. Що хітіли б дізнатися ще у свері ІТ?")]
+        public string AboutMe { get; set; }
     }
 
     public class ResetPasswordViewModel
