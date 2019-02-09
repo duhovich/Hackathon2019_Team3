@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewBag.Title = "SupportingRatings";
+}
+
+@model Hackathon2019.Models.RatingsViewModel
+
+<h3 align="center">Підтвердження оцінок</h3>
+<br/>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Ім*я</th>
+            <th scope="col">Назва курсу</th>
+            <th scope="col">Назва модуля</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (Hackathon2019.Models.RatingsViewModel s1 in ViewBag.Rezult)
+    {
+        foreach (var s2 in s1.NameModule)
+        {
+        <tr>
+            <td>@s1.IdStudent</td>
+            <td>@s1.FullName</td>
+            <td>@s1.NameCourse</td>
+            <td>@s2</td>
+        </tr>
+         }
+    }
+    </tbody>
+</table>

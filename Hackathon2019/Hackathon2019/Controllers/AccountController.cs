@@ -156,6 +156,7 @@ namespace Hackathon2019.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    await UserManager.AddToRoleAsync(user.Id, "unconfirmed");
                     Student nSt = new Student
                     {
                         Institution = model.Institution,
@@ -177,13 +178,21 @@ namespace Hackathon2019.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Подтверждение учетной записи", "Подтвердите вашу учетную запись, щелкнув <a href=\"" + callbackUrl + "\">здесь</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("UnconfirmedUserIndex", "Account");
                 }
                 AddErrors(result);
             }
 
             // Появление этого сообщения означает наличие ошибки; повторное отображение формы
             return View(model);
+        }
+
+        [Authorize(Roles ="unconfirmed")]
+        public ActionResult UnconfirmedUserIndex()
+        {
+            var userID = User.Identity.GetUserId();
+            var user = db.Users.Where(u => u.Id == userID).FirstOrDefault();
+            return View(user);
         }
 
         //
